@@ -1,0 +1,21 @@
+﻿@model IEnumerable<tennis.Models.Coach>
+
+<h2>Coaches</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Biography</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var coach in Model)
+        {
+            <tr>
+                <td><a href="@Url.Action("CoachProfile", "Member", new { id = coach.CoachId })">@coach.FirstName @coach.LastName</a></td>
+                <td>@coach.Biography</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<tennis.Models.Schedule>
+
+<h2>My Schedules</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var schedule in Model)
+        {
+            <tr>
+                <td>@schedule.Name</td>
+                <td>@schedule.Location</td>
+                <td>@schedule.Date.ToShortDateString()</td>
+                <td>@schedule.Description</td>
+                <td>
+                    <a asp-action="EnrolledMembers" asp-route-id="@schedule.ScheduleId" class="btn btn-primary">View Enrolled Members</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

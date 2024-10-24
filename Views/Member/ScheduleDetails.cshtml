@@ -1,0 +1,16 @@
+﻿@model Schedule
+
+<h2>Schedule Details</h2>
+
+<div>
+    <h3>@Model.Name</h3>
+    <p><strong>Date:</strong> @Model.Date</p>
+    <p><strong>Location:</strong> @Model.Location</p>
+    <p><strong>Description:</strong> @Model.Description</p>
+    <p>
+        <strong>Coach:</strong>
+        <a asp-action="CoachProfile" asp-route-id="@Model.Coach.CoachId">
+            @Model.Coach.FirstName @Model.Coach.LastName
+        </a>
+    </p>
+</div>

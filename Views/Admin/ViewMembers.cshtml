@@ -1,0 +1,48 @@
+﻿@model IEnumerable<tennis.Models.Member>
+
+@{
+    ViewData["Title"] = "View Members";
+}
+
+<h1>View Members</h1>
+<form asp-action="SendNotifications" method="post">
+    <button type="submit" class="btn btn-primary">Send Notifications</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Active</th>
+            <th>Enrolled Schedules</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var member in Model)
+        {
+            <tr>
+                <td>@member.FirstName</td>
+                <td>@member.LastName</td>
+                <td>@member.Email</td>
+                <td>@member.Active</td>
+                <td>
+                    @foreach (var memberSchedule in member.MemberSchedules)
+                    {
+                        <div>@memberSchedule.Schedule.Name (@memberSchedule.Schedule.Date)</div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@if (TempData["NotificationResult"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["NotificationResult"]
+    </div>
+}

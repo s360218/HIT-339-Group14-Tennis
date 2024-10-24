@@ -1,0 +1,45 @@
+﻿@model EnrollViewModel
+
+<h2>Enroll in Schedule</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Coach</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var schedule in Model.Schedules)
+        {
+            <tr>
+                <td>
+                    <a asp-action="ScheduleDetails" asp-route-id="@schedule.ScheduleId">@schedule.Name</a>
+                </td>
+                <td>@schedule.Date</td>
+                <td>@schedule.Location</td>
+                <td>
+                    <a asp-action="CoachProfile" asp-route-id="@schedule.Coach.CoachId">
+                        @schedule.Coach.FirstName @schedule.Coach.LastName
+                    </a>
+                </td>
+                <td>
+                    @if (Model.EnrolledScheduleIds.Contains(schedule.ScheduleId))
+                    {
+                        <span>&#10003;</span>
+                    }
+                    else
+                    {
+                        <form asp-action="Enroll" method="post" style="display:inline;">
+                            <input type="hidden" name="scheduleId" value="@schedule.ScheduleId" />
+                            <button type="submit" class="btn btn-primary">Enroll</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

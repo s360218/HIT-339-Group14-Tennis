@@ -1,0 +1,32 @@
+﻿@model IEnumerable<tennis.Models.Schedule>
+
+<h2>My Schedules</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Coach</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var schedule in Model)
+        {
+            <tr>
+                <td>@schedule.Name</td>
+                <td>@schedule.Date</td>
+                <td>@schedule.Location</td>
+                <td>
+                    @if (schedule.Coach != null)
+                    {
+                        <a href="@Url.Action("CoachProfile", "Member", new { id = schedule.Coach.CoachId })">
+                            @schedule.Coach.FirstName @schedule.Coach.LastName
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

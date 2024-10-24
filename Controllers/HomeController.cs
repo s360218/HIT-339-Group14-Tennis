@@ -1,3 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using tennis.Areas.Identity.Data;
+using tennis.Models;
+
 namespace tennis.Controllers
 {
     [Authorize]
@@ -14,6 +21,26 @@ namespace tennis.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user != null)
+                {
+                    if (await _userManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else if (await _userManager.IsInRoleAsync(user, "Coach"))
+                    {
+                        return RedirectToAction("MySchedules", "Coach");
+                    }
+                    else if (await _userManager.IsInRoleAsync(user, "Member"))
+                    {
+                        return RedirectToAction("MySchedules", "Member");
+                    }
+                }
+            }
+
             return View();
         }
 
